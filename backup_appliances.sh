@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 temp="$(pip list | grep requests)"
-if [[ -z "$temp" ]]; then
+if [ -z "$temp" ]; then
   pip install requests
 fi
 
