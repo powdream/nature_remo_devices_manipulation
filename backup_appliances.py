@@ -2,6 +2,7 @@
 
 import requests
 import json
+import sys
 from os import environ
 from datetime import date
 from pathlib import Path
@@ -42,16 +43,26 @@ def backup_object(obj: object, target_filepath: Path):
   pass
 
 if __name__ == '__main__':
+  backup_root = './backup'
+  if len(sys.argv) > 1:
+    backup_root = sys.argv[1]
+    # Eliminates the tailing '/'.
+    while backup_root[-1] == '/':
+      backup_root = backup_root[:-1]
+    pass
+
   print(f'ACCESS_TOKEN={ACCESS_TOKEN}')
+  print(f'BACKUP_ROOT={backup_root}')
+
   today = date.today()
 
   applieances = get_appliances()
   if applieances != None:
-    backup_object(applieances, Path(f'./backup/{str(today)}/appliances.json'))
+    backup_object(applieances, Path(f'{backup_root}/{str(today)}/appliances.json'))
     pass
 
   devices = get_devices()
   if devices != None:
-    backup_object(devices, Path(f'./backup/{str(today)}/devices.json'))
+    backup_object(devices, Path(f'{backup_root}/{str(today)}/devices.json'))
     pass
   pass

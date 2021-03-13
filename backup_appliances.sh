@@ -5,4 +5,4 @@ if [[ -z "$temp" ]]; then
   pip install requests
 fi
 
-python backup_appliances.py
+python backup_appliances.py $@
